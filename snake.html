@@ -1,0 +1,98 @@
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <style>
+    html, body {
+      margin: 0px;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+  <script>
+
+    var ctx;
+
+    function mainDraw() {
+      requestAnimationFrame(mainDraw);
+      allElements.forEach(function(element) {
+        element.draw();
+      });
+    }
+
+    var Keys = {
+      up: 38,
+      down: 40,
+      left: 37,
+      right: 39
+    };
+
+    function pressKey(aEvent) {
+      switch(aEvent.keyCode) {
+        case Keys.up:
+          Snake.moveUp();
+          break;
+        case Keys.down:
+          Snake.moveDown();
+          break;
+        case Keys.left:
+          Snake.moveLeft();
+          break;
+        case Keys.right:
+          Snake.moveRight();
+          break;
+      }
+    }
+
+    var Screen = {
+      draw: function() {
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, canvas.width = window.innerWidth, canvas.height = window.innerHeight);
+      }
+    };
+
+    var Snake = {
+      x: 0,
+      y: 0,
+      width: 20,
+      height: 20,
+      moveUp: function() {
+        this.y -= 20;
+      },
+      moveDown: function() {
+        if (this.y < canvas.height - this.height) {
+          this.y += 20;
+        };
+      },
+      moveLeft: function() {
+        this.x -= 20;
+      },
+      moveRight: function() {
+        if (this.x < canvas.width - this.width) {
+          this.x += 20;
+        };
+      },
+      draw: function() {
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+      }
+    };
+
+    var allElements = [
+      Screen,
+      Snake
+    ];
+
+    function init() {
+      var canvas = document.getElementById('canvas');
+      ctx = canvas.getContext('2d');
+      window.onkeydown = pressKey;
+      requestAnimationFrame(mainDraw);
+    };
+
+  </script>
+  </head>
+  <body onload="init()">
+    <canvas id="canvas"></canvas>
+  </body>
+</html>
