@@ -10,7 +10,8 @@
     }
   </style>
   <script>
-
+    "use strict";
+    var canvas;
     var ctx;
 
     function mainDraw() {
@@ -45,9 +46,11 @@
     }
 
     var Screen = {
+      width: window.innerWidth,
+      height: window.innerHeight,
       draw: function() {
         ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, canvas.width = window.innerWidth, canvas.height = window.innerHeight);
+        ctx.fillRect(0, 0, canvas.width = this.width, canvas.height = this.height);
       }
     };
 
@@ -60,7 +63,7 @@
         this.y -= 20;
       },
       moveDown: function() {
-        if (this.y < canvas.height - this.height) {
+        if (this.y < Screen.height - this.width) {
           this.y += 20;
         };
       },
@@ -68,7 +71,7 @@
         this.x -= 20;
       },
       moveRight: function() {
-        if (this.x < canvas.width - this.width) {
+        if (this.x < Screen.width - this.width) {
           this.x += 20;
         };
       },
@@ -84,7 +87,7 @@
     ];
 
     function init() {
-      var canvas = document.getElementById('canvas');
+      canvas = document.getElementById('canvas');
       ctx = canvas.getContext('2d');
       window.onkeydown = pressKey;
       requestAnimationFrame(mainDraw);
