@@ -6,7 +6,8 @@
       margin: 0px;
     }
     canvas {
-      display: block;
+     display: block;
+     margin: 0 auto;
     }
   </style>
   <script>
@@ -46,11 +47,9 @@
     }
 
     var Screen = {
-      width: window.innerWidth,
-      height: window.innerHeight,
       draw: function() {
         ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, canvas.width = this.width, canvas.height = this.height);
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
     };
 
@@ -60,18 +59,22 @@
       width: 20,
       height: 20,
       moveUp: function() {
-        this.y -= 20;
+	      if (this.y > 0) {
+          this.y -= 20;
+	      };
       },
       moveDown: function() {
-        if (this.y < Screen.height - this.width) {
+        if (this.y < canvas.height - this.height) {
           this.y += 20;
         };
       },
       moveLeft: function() {
-        this.x -= 20;
+	      if (this.x > 0) {
+          this.x -= 20;
+	      };
       },
       moveRight: function() {
-        if (this.x < Screen.width - this.width) {
+        if (this.x < canvas.width - this.width) {
           this.x += 20;
         };
       },
@@ -96,6 +99,6 @@
   </script>
   </head>
   <body onload="init()">
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" width="800" height="600"></canvas>
   </body>
 </html>
