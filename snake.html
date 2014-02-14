@@ -59,9 +59,9 @@
       width: 20,
       height: 20,
       moveUp: function() {
-	      if (this.y > 0) {
+        if (this.y > 0) {
           this.y -= 20;
-	      };
+        };
       },
       moveDown: function() {
         if (this.y < canvas.height - this.height) {
@@ -84,9 +84,23 @@
       }
     };
 
+    var Food = {
+      x: Math.random() * 800, 
+      y: Math.random() * 600,
+      r: 8,
+      draw: function() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+        ctx.fillStyle = "#FF0000";
+        ctx.fill();
+        ctx.stroke();
+      }
+    };
+
     var allElements = [
       Screen,
-      Snake
+      Snake,
+      Food
     ];
 
     function init() {
