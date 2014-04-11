@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      canvas { display: block; margin: 0 auto; }
+    </style>
+    <script type="text/javascript" src="modernizr.js"></script>
+    <script>
+      
+      var canvas;
+      var ctx;
+
+      var MainScreen = {
+        draw: function () {
+          ctx.fillStyle = "#000000";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.fill();
+        }
+      };
+            
+      var Snake = {
+        x: 0,
+        y: 0,
+        vectx: 3, // speed of vector x
+        vecty: 3, // speed of vector y
+        snakeX: 10,
+        snakeY: 10, 
+        draw: function () {
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fillRect(this.x, this.y, this.snakeX, this.snakeY);
+        }
+      };
+
+      function mainDraw() {
+        requestAnimationFrame(mainDraw);
+        gameElements.forEach(function(element) {
+          element.draw();
+        });
+      }
+
+      var gameElements = [
+        MainScreen,
+        Snake
+      ];
+      
+      function init() {
+        if (!Modernizr.canvas) {
+          document.write("Unfortunately your current browser doesn't support HTML Canvas, either grab the latest Chrome or Firefox");
+        } else {
+          canvas = document.getElementById("canvas");
+          ctx = canvas.getContext("2d");
+          requestAnimationFrame(mainDraw);
+        }
+      };
+
+    </script>
+  </head>
+  <body onload="init();">
+    <canvas id="canvas" width="500" height="500" style="border:10px solid #587CDC;"></canvas>
+  </body>
+</html>
