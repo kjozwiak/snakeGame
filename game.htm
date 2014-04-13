@@ -32,6 +32,19 @@
         }
       };
 
+      var Food = {
+        images: ["images/image1.png", 'images/image2.png', 'images/image3.png', 'images/image4.png',
+              'images/image5.png', 'images/image6.png', 'images/image7.png', 'image/image8.png'],
+        draw: function () {
+          var randImg = Math.floor(Math.random() * this.images.length);
+          var x = Math.floor(Math.random() * canvas.width);
+          var y = Math.floor(Math.random() * canvas.height);
+          var img = new Image();
+          img.src = this.images[randImg];
+          ctx.drawImage(img, x, y);
+        }
+      };
+
       function mainDraw() {
         requestAnimationFrame(mainDraw);
         gameElements.forEach(function(element) {
@@ -41,7 +54,8 @@
 
       var gameElements = [
         MainScreen,
-        Snake
+        Snake,
+        Food
       ];
       
       function init() {
