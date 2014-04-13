@@ -7,7 +7,7 @@
     </style>
     <script type="text/javascript" src="modernizr.js"></script>
     <script>
-      
+
       var canvas;
       var ctx;
 
@@ -18,14 +18,57 @@
           ctx.fill();
         }
       };
-            
+
+      var Keys = {
+        up: 38,
+        down: 40,
+        left: 37,
+        right: 39
+      };
+
+      function KeyDown(aEvent) {
+        switch(aEvent.keyCode) {
+          case Keys.up:
+            Snake.moveUp();
+            break;
+          case Keys.down:
+            Snake.moveDown();
+            break;
+          case Keys.left:
+            Snake.moveLeft();
+            break;
+          case Keys.right:
+            Snake.moveRight();
+            break;
+        }
+      };
+
       var Snake = {
         x: 0,
         y: 0,
-        vectx: 3, // speed of vector x
-        vecty: 3, // speed of vector y
-        snakeX: 10,
-        snakeY: 10, 
+        vectSpeed: 15, // Vector speed
+        snakeX: 20,
+        snakeY: 20,
+        moveUp: function () {
+          if (this.y > 0) {
+            this.y -= this.vectSpeed;
+          }
+        },
+        moveDown: function () {
+          if (this.y < canvas.height - this.snakeY) {
+            this.y += this.vectSpeed;
+          }
+        },
+        moveLeft: function () {
+          if (this.x > 0) {
+            this.x -= this.vectSpeed;
+          }
+        },
+        moveRight: function () {
+          if (this.x < canvas.width - this.snakeX) {
+            this.x += this.vectSpeed;
+          }
+        },
         draw: function () {
           ctx.fillStyle = "#FFFFFF";
           ctx.fillRect(this.x, this.y, this.snakeX, this.snakeY);
@@ -41,7 +84,7 @@
           var y = Math.floor(Math.random() * canvas.height);
           var img = new Image();
           img.src = this.images[randImg];
-          ctx.drawImage(img, x, y);
+          ctx.drawImage(img, y, x);
         }
       };
 
@@ -57,13 +100,14 @@
         Snake,
         Food
       ];
-      
+
       function init() {
         if (!Modernizr.canvas) {
           document.write("Unfortunately your current browser doesn't support HTML Canvas, either grab the latest Chrome or Firefox");
         } else {
           canvas = document.getElementById("canvas");
           ctx = canvas.getContext("2d");
+          window.onkeydown = KeyDown;
           requestAnimationFrame(mainDraw);
         }
       };
@@ -71,6 +115,6 @@
     </script>
   </head>
   <body onload="init();">
-    <canvas id="canvas" width="500" height="500" style="border:10px solid #587CDC;"></canvas>
+    <canvas id="canvas" width="800" height="680" style="border:10px solid #587CDC;"></canvas>
   </body>
 </html>
