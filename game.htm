@@ -10,11 +10,12 @@
 
       var canvas;
       var ctx;
+      var cW, cH; // canvas width, height
 
       var MainScreen = {
         draw: function () {
           ctx.fillStyle = "#000000";
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.fillRect(0, 0, cW, cH);
           ctx.fill();
         }
       };
@@ -46,16 +47,16 @@
       var Snake = {
         x: 0,
         y: 0,
-        vectSpeed: 15, // Vector speed
-        snakeX: 20,
-        snakeY: 20,
+        vectSpeed: 20, // Vector speed
+        snakeX: 10,
+        snakeY: 10,
         moveUp: function () {
           if (this.y > 0) {
             this.y -= this.vectSpeed;
           }
         },
         moveDown: function () {
-          if (this.y < canvas.height - this.snakeY) {
+          if (this.y < cH - this.snakeY) {
             this.y += this.vectSpeed;
           }
         },
@@ -65,13 +66,14 @@
           }
         },
         moveRight: function () {
-          if (this.x < canvas.width - this.snakeX) {
+          if (this.x < cW - this.snakeX) {
             this.x += this.vectSpeed;
           }
         },
         draw: function () {
           ctx.fillStyle = "#FFFFFF";
           ctx.fillRect(this.x, this.y, this.snakeX, this.snakeY);
+          ctx.fill();
         }
       };
 
@@ -80,8 +82,8 @@
               'images/image5.png', 'images/image6.png', 'images/image7.png', 'image/image8.png'],
         draw: function () {
           var randImg = Math.floor(Math.random() * this.images.length);
-          var x = Math.floor(Math.random() * canvas.width);
-          var y = Math.floor(Math.random() * canvas.height);
+          var x = Math.floor(Math.random() * cW);
+          var y = Math.floor(Math.random() * cH);
           var img = new Image();
           img.src = this.images[randImg];
           ctx.drawImage(img, y, x);
@@ -107,6 +109,8 @@
         } else {
           canvas = document.getElementById("canvas");
           ctx = canvas.getContext("2d");
+          cW = canvas.width;
+          cH = canvas.height;
           window.onkeydown = KeyDown;
           requestAnimationFrame(mainDraw);
         }
@@ -115,6 +119,6 @@
     </script>
   </head>
   <body onload="init();">
-    <canvas id="canvas" width="800" height="680" style="border:10px solid #587CDC;"></canvas>
+    <canvas id="canvas" width="410" height="350" style="border:10px solid #587CDC;"></canvas>
   </body>
 </html>
