@@ -80,13 +80,21 @@
       var Food = {
         images: ["images/image1.png", 'images/image2.png', 'images/image3.png', 'images/image4.png',
               'images/image5.png', 'images/image6.png', 'images/image7.png', 'image/image8.png'],
+        randImg: 0,
+        lastDrawTime: 0,
+        x: 0,
+        y: 0,
         draw: function () {
-          var randImg = Math.floor(Math.random() * this.images.length);
-          var x = Math.floor(Math.random() * cW);
-          var y = Math.floor(Math.random() * cH);
+          var currentDrawTime = new Date().getTime();
+          if (currentDrawTime - this.lastDrawTime > 7000) {
+            this.randImg = Math.floor(Math.random() * this.images.length);
+            this.x = Math.floor(Math.random() * cW);
+            this.y = Math.floor(Math.random() * cH);
+            this.lastDrawTime = new Date().getTime();
+          }
           var img = new Image();
-          img.src = this.images[randImg];
-          ctx.drawImage(img, y, x);
+          img.src = this.images[this.randImg];
+          ctx.drawImage(img, this.x, this.y);
         }
       };
 
